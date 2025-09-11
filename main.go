@@ -6,8 +6,8 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/joshua-zingale/activity-grading-server/internal/handler"
-	"github.com/joshua-zingale/activity-grading-server/internal/store"
+	"github.com/joshua-zingale/grader/internal/handler"
+	"github.com/joshua-zingale/grader/internal/store"
 )
 
 func main() {

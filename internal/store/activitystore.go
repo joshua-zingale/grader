@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/joshua-zingale/activity-grading-server/internal/activity"
+	"github.com/joshua-zingale/grader/internal/activity"
 )
 
 type ActivityStore struct {

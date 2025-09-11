@@ -6,8 +6,8 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/joshua-zingale/activity-grading-server/internal/activity"
-	"github.com/joshua-zingale/activity-grading-server/internal/store"
+	"github.com/joshua-zingale/grader/internal/activity"
+	"github.com/joshua-zingale/grader/internal/store"
 )
 
 type SubmissionHandler struct {

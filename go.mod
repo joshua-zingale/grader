@@ -1,3 +1,3 @@
-module github.com/joshua-zingale/activity-grading-server
+module github.com/joshua-zingale/grader
 
 go 1.25.0
