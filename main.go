@@ -22,6 +22,7 @@ func main() {
 	go submissionHandler.StoreRecords()
 
 	http.HandleFunc("POST /submissions", submissionHandler.Post)
+	http.HandleFunc("OPTIONS /submissions", submissionHandler.Options)
 
 	log.Printf("Activity Grading Server running at %s:%s", *webHost, *port)
 	http.ListenAndServe(fmt.Sprintf("%s:%s", *webHost, *port), nil)

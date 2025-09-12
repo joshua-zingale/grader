@@ -3,6 +3,7 @@ package handler
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 	"time"
 
@@ -22,11 +23,24 @@ func NewSubmissionHandler(activityStore *store.ActivityStore) SubmissionHandler 
 	}
 }
 
+func setCorsHeaders(w *http.ResponseWriter, req *http.Request) {
+	(*w).Header().Set("Access-Control-Allow-Origin", req.Header.Get("Origin"))
+	(*w).Header().Set("Access-Control-Allow-Headers", "Content-Type")
+}
+
+func (h *SubmissionHandler) Options(w http.ResponseWriter, req *http.Request) {
+	setCorsHeaders(&w, req)
+	w.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS")
+	w.WriteHeader(http.StatusOK)
+}
+
 func (h *SubmissionHandler) Post(w http.ResponseWriter, req *http.Request) {
+	setCorsHeaders(&w, req)
 	if req.Header.Get("Content-Type") != "application/json" {
 		http.Error(w, "Unsuported media type: Expected Content-Type: application/json", http.StatusUnsupportedMediaType)
 		return
 	}
+
 	w.Header().Set("Content-Type", "application/json")
 
 	var submission activity.Submission
@@ -34,7 +48,8 @@ func (h *SubmissionHandler) Post(w http.ResponseWriter, req *http.Request) {
 
 	activity, err := h.activityStore.Get(submission.Identifier)
 	if err != nil {
-		http.Error(w, "Invalid activity identifier.", 404)
+		http.Error(w, "Invalid activity identifier", 404)
+		log.Printf("Invalid activity identifier '%s'", activity.Identifier)
 		return
 	}
 
