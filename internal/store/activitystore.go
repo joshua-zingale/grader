@@ -28,7 +28,7 @@ func NewActivityStore(activityFilePath string) ActivityStore {
 	for scanner.Scan() {
 		var activity activity.Activity
 		json.Unmarshal(scanner.Bytes(), &activity)
-		if activity.Validate() != nil {
+		if err := activity.Validate(); err != nil {
 			panic(err)
 		}
 		err = activityStore.Add(activity)
