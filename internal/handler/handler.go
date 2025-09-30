@@ -49,7 +49,8 @@ func (h *SubmissionHandler) Post(w http.ResponseWriter, req *http.Request) {
 	activity, err := h.activityStore.Get(submission.Identifier)
 	if err != nil {
 		http.Error(w, "Invalid activity identifier", 404)
-		log.Printf("Invalid activity identifier '%s'", submission.Identifier)
+		submissionJson, _ := json.Marshal(submission)
+		log.Printf("Invalid activity identifier '%s' in submission: %s", submission.Identifier, submissionJson)
 		return
 	}
 
